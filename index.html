@@ -4,687 +4,137 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Identity Audit Protocol — Assessment</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg:        #EFF6F4;
-      --bg-alt:    #F5F8F7;
-      --text:      #2F3A38;
-      --soft:      #5A6B68;
-      --accent:    #9FC7BF;
-      --border:    rgba(159, 199, 191, 0.28);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      font-size: 15px;
-      line-height: 1.7;
-      letter-spacing: 0.01em;
-      -webkit-font-smoothing: antialiased;
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 64px 52px;
-    }
-
-    /* ── HEADER ─────────────────────────────────────── */
-    .form-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 52px;
-    }
-
-    .logo-block {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .diamond {
-      width: 11px;
-      height: 11px;
-      background: var(--accent);
-      transform: rotate(45deg);
-      opacity: 0.85;
-      flex-shrink: 0;
-    }
-
-    .logo-text {
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--soft);
-    }
-
-    .header-meta p {
-      font-size: 10.5px;
-      color: var(--soft);
-      letter-spacing: 0.04em;
-      text-align: right;
-      line-height: 1.6;
-    }
-
-    /* ── INTRO ──────────────────────────────────────── */
-    .intro { margin-bottom: 52px; }
-
-    .intro h1 {
-      font-size: 1.4rem;
-      font-weight: 300;
-      letter-spacing: -0.01em;
-      color: var(--text);
-      margin-bottom: 20px;
-      line-height: 1.25;
-    }
-
-    .intro p {
-      font-size: 0.9rem;
-      color: var(--soft);
-      line-height: 1.75;
-      max-width: 520px;
-    }
-
-    /* ── IDENTITY FIELDS ────────────────────────────── */
-    .identity-block {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 56px;
-      padding: 32px 28px;
-      background: var(--bg-alt);
-      border-left: 2px solid var(--accent);
-    }
-
-    @media (max-width: 500px) {
-      .identity-block { grid-template-columns: 1fr; }
-    }
-
-    /* ── PART HEADER ────────────────────────────────── */
-    .part-header {
-      margin-bottom: 36px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .part-num {
-      font-size: 9px;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
-
-    .part-title {
-      font-size: 0.85rem;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .part-description {
-      font-size: 0.825rem;
-      color: var(--soft);
-      font-style: italic;
-    }
-
-    /* ── QUESTION ───────────────────────────────────── */
-    .question {
-      margin-bottom: 40px;
-    }
-
-    .question:last-child { margin-bottom: 0; }
-
-    .q-num {
-      font-size: 9.5px;
-      font-weight: 400;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
-
-    .q-text {
-      font-size: 0.95rem;
-      font-weight: 400;
-      color: var(--text);
-      margin-bottom: 6px;
-      line-height: 1.5;
-    }
-
-    .q-hint {
-      font-size: 0.8rem;
-      color: var(--soft);
-      font-style: italic;
-      margin-bottom: 14px;
-      line-height: 1.5;
-    }
-
-    /* ── FORM CONTROLS ──────────────────────────────── */
-    label {
-      display: block;
-      font-size: 10.5px;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--soft);
-      margin-bottom: 8px;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    textarea,
-    select {
-      width: 100%;
-      background: var(--bg-alt);
-      border: 1px solid rgba(159, 199, 191, 0.35);
-      border-radius: 0;
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 300;
-      padding: 14px 16px;
-      outline: none;
-      transition: border-color 0.18s;
-      -webkit-appearance: none;
-    }
-
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    textarea:focus,
-    select:focus {
-      border-color: var(--accent);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 110px;
-      line-height: 1.65;
-    }
-
-    select {
-      cursor: pointer;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A6B68' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-      padding-right: 40px;
-    }
-
-    /* radio options */
-    .radio-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .radio-option {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      cursor: pointer;
-    }
-
-    .radio-option input[type="radio"] {
-      width: auto;
-      margin-top: 3px;
-      flex-shrink: 0;
-      accent-color: var(--accent);
-    }
-
-    .radio-option span {
-      font-size: 0.9rem;
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    /* ── PART WRAPPER ───────────────────────────────── */
-    .part {
-      margin-bottom: 64px;
-    }
-
-    .part:last-of-type { margin-bottom: 0; }
-
-    /* ── DIVIDER ────────────────────────────────────── */
-    .rule {
-      width: 44px;
-      height: 1px;
-      background: var(--accent);
-      opacity: 0.5;
-      margin: 52px 0;
-    }
-
-    /* ── SUBMIT ─────────────────────────────────────── */
-    .submit-block {
-      margin-top: 56px;
-      padding-top: 44px;
-      border-top: 1px solid var(--border);
-    }
-
-    .submit-note {
-      font-size: 0.825rem;
-      color: var(--soft);
-      line-height: 1.7;
-      margin-bottom: 28px;
-      max-width: 480px;
-    }
-
-    button[type="submit"] {
-      display: inline-block;
-      padding: 16px 44px;
-      background: var(--text);
-      color: var(--bg);
-      font-family: 'Inter', sans-serif;
-      font-size: 10.5px;
-      font-weight: 400;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      transition: opacity 0.18s;
-    }
-
-    button[type="submit"]:hover { opacity: 0.75; }
-
-    /* ── FOOTER ─────────────────────────────────────── */
-    .form-footer {
-      margin-top: 52px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .form-footer p {
-      font-size: 10px;
-      color: var(--soft);
-      letter-spacing: 0.04em;
-    }
-
-    /* ── PRINT ──────────────────────────────────────── */
-    @media print {
-      body { padding: 36px 44px; }
-      .part { break-inside: avoid; }
-      .question { break-inside: avoid; }
-      button[type="submit"] { display: none; }
-      .submit-note { display: none; }
-    }
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; }
+    label { display: block; margin: 20px 0 8px; font-weight: bold; }
+    textarea { width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px; min-height: 120px; }
+    input[type="email"] { width: 100%; padding: 14px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px; }
+    button { padding: 18px 40px; font-size: 18px; background: #000; color: white; border: none; border-radius: 8px; cursor: pointer; margin-top: 40px; }
+    small { display: block; margin-top: 6px; color: #666; }
+    h1, h2 { text-align: center; }
   </style>
 </head>
 <body>
 
-  <!-- ── HEADER ─────────────────────────────────────── -->
-  <div class="form-header">
-    <div class="logo-block">
-      <div class="diamond"></div>
-      <span class="logo-text">SCE — Identity Audit Protocol</span>
-    </div>
-    <div class="header-meta">
-      <p>Pattern Detection &amp; Liberation Assessment</p>
-      <p>30–40 minutes · Answer slowly</p>
-    </div>
+<form action="https://formspree.io/f/YOUR_FORMSPREE_CODE_HERE" method="POST">
+
+  <h1>Identity Audit Protocol — Assessment</h1>
+  <p><strong>Pattern Detection & Liberation Assessment</strong></p>
+  <p>30–40 minutes · Answer slowly</p>
+
+  <p><em>This is not a test. There are no right answers. This is a mirror.</em></p>
+
+  <!-- Email -->
+  <div style="margin: 40px 0; padding: 25px; background: #f9f9f9; border-radius: 10px;">
+    <label for="email"><strong>Your Email Address</strong><br>
+    <small>We will send your personalized PDF report to this address</small></label><br><br>
+    <input type="email" name="email" placeholder="you@example.com" required>
   </div>
 
-  <!-- ── INTRO ──────────────────────────────────────── -->
-  <div class="intro">
-    <h1>This is not a test.<br>There are no right answers.</h1>
-    <p>This is a mirror. Answer slowly, honestly, without performing.<br>
-    If a question makes you uncomfortable — that reaction is already the data.<br>
-    Do not overthink. Write what comes first.</p>
-  </div>
+  <!-- Q1 -->
+  <label for="Q1"><strong>Q1</strong><br>In which area of your life do you feel the most stagnation, heaviness, or repetition right now?</label>
+  <small>Health / money / relationships / purpose / work / self-trust — be specific</small><br><br>
+  <textarea name="Q1" rows="5" required></textarea><br><br>
 
-  <div id="success-state" style="display:none; text-align:center; padding: 80px 0;">
-    <div style="font-size:9px; font-weight:400; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:20px;">Assessment received</div>
-    <h1 style="font-size:1.3rem; font-weight:300; letter-spacing:-0.01em; margin-bottom:20px;">Your report is on its way.</h1>
-    <p style="font-size:0.9rem; color:var(--soft); max-width:400px; margin:0 auto;">Check your inbox. Most reports are delivered within a few hours.<br><br>If a question made you uncomfortable — that reaction was already the data.</p>
-  </div>
+  <!-- Q2 -->
+  <label for="Q2"><strong>Q2</strong><br>What problem keeps reappearing no matter how much work you do on yourself?</label>
+  <small>The one that keeps coming back. The pattern you're tired of.</small><br><br>
+  <textarea name="Q2" rows="5" required></textarea><br><br>
 
-  <form id="audit-form">
+  <!-- Q3 -->
+  <label for="Q3"><strong>Q3</strong><br>If your life stayed exactly the same for the next 5 years, what scares you most?</label>
+  <small>Answer from the gut, not the mind.</small><br><br>
+  <textarea name="Q3" rows="5" required></textarea><br><br>
 
-    <!-- ── IDENTITY ────────────────────────────────── -->
-    <div class="identity-block">
-      <div>
-        <label for="client-name">Your name</label>
-        <input type="text" id="client-name" name="client_name" placeholder="Full name" required>
-      </div>
-      <div>
-        <label for="client-email">Email address</label>
-        <input type="email" id="client-email" name="client_email" placeholder="Where your report will be sent" required>
-      </div>
-    </div>
+  <!-- Q4 -->
+  <label for="Q4"><strong>Q4</strong><br>When growth or change is required, how do you tend to avoid it?</label>
+  <small>Procrastination / distraction / over-planning / staying busy / numbing / controlling</small><br><br>
+  <textarea name="Q4" rows="5" required></textarea><br><br>
 
-    <!-- ── PART 1 ───────────────────────────────────── -->
-    <div class="part">
-      <div class="part-header">
-        <div class="part-num">Part 1 of 7</div>
-        <div class="part-title">Where You Are</div>
-        <div class="part-description">These reveal where energy is currently stuck.</div>
-      </div>
+  <!-- Q5 -->
+  <label for="Q5"><strong>Q5</strong><br>What do you start with enthusiasm and then abandon?</label>
+  <small>Be specific. Name something real.</small><br><br>
+  <textarea name="Q5" rows="5" required></textarea><br><br>
 
-      <div class="question">
-        <div class="q-num">Q1</div>
-        <div class="q-text">In which area of your life do you feel the most stagnation, heaviness, or repetition right now?</div>
-        <div class="q-hint">Health / money / relationships / purpose / work / self-trust — be specific</div>
-        <textarea name="q1" placeholder="Write what comes first..."></textarea>
-      </div>
+  <!-- Q6 -->
+  <label for="Q6"><strong>Q6</strong><br>What commitment to yourself do you keep breaking, over and over?</label>
+  <small>Not to others — to yourself.</small><br><br>
+  <textarea name="Q6" rows="5" required></textarea><br><br>
 
-      <div class="question">
-        <div class="q-num">Q2</div>
-        <div class="q-text">What problem keeps reappearing no matter how much work you do on yourself?</div>
-        <div class="q-hint">The one that keeps coming back. The pattern you're tired of.</div>
-        <textarea name="q2" placeholder="Write what comes first..."></textarea>
-      </div>
+  <!-- Q7 -->
+  <label for="Q7"><strong>Q7</strong><br>What part of your current identity would have to change — or disappear — for you to reach the next level?</label>
+  <small>What version of you would need to die?</small><br><br>
+  <textarea name="Q7" rows="5" required></textarea><br><br>
 
-      <div class="question">
-        <div class="q-num">Q3</div>
-        <div class="q-text">If your life stayed exactly the same for the next 5 years, what scares you most?</div>
-        <div class="q-hint">Answer from the gut, not the mind.</div>
-        <textarea name="q3" placeholder="Write what comes first..."></textarea>
-      </div>
-    </div>
+  <!-- Q8 -->
+  <label for="Q8"><strong>Q8</strong><br>What fear feels "irrational" to you, yet still controls important decisions?</label>
+  <small>The one you know doesn't make sense but acts anyway.</small><br><br>
+  <textarea name="Q8" rows="5" required></textarea><br><br>
 
-    <div class="rule"></div>
+  <!-- Q9 -->
+  <label for="Q9"><strong>Q9</strong><br>What role do you tend to repeat in life — in work, relationships, and challenges?</label>
+  <small>Victim / rescuer / over-achiever / people-pleaser / avoider / rebel / the strong one</small><br><br>
+  <textarea name="Q9" rows="5" required></textarea><br><br>
 
-    <!-- ── PART 2 ───────────────────────────────────── -->
-    <div class="part">
-      <div class="part-header">
-        <div class="part-num">Part 2 of 7</div>
-        <div class="part-title">How You Stop Yourself</div>
-        <div class="part-description">These reveal your execution failure pattern.</div>
-      </div>
+  <!-- Q10 -->
+  <label for="Q10"><strong>Q10</strong><br>How does your body respond when you're about to grow, be seen, or take a significant step?</label>
+  <small>Tension / shutdown / hyperactivity / numbness / anxiety / avoidance — describe the physical sensation</small><br><br>
+  <textarea name="Q10" rows="5" required></textarea><br><br>
 
-      <div class="question">
-        <div class="q-num">Q4</div>
-        <div class="q-text">When growth or change is required, how do you tend to avoid it?</div>
-        <div class="q-hint">Procrastination / distraction / over-planning / staying busy / numbing / controlling</div>
-        <textarea name="q4" placeholder="Write what comes first..."></textarea>
-      </div>
+  <!-- Q11 -->
+  <label for="Q11"><strong>Q11</strong><br>What sensation or state do you habitually override to keep functioning?</label>
+  <small>Fatigue / emotions / needs / discomfort — what do you push past to "keep going"?</small><br><br>
+  <textarea name="Q11" rows="5" required></textarea><br><br>
 
-      <div class="question">
-        <div class="q-num">Q5</div>
-        <div class="q-text">What do you start with enthusiasm and then abandon?</div>
-        <div class="q-hint">Be specific. Name something real.</div>
-        <textarea name="q5" placeholder="Write what comes first..."></textarea>
-      </div>
+  <!-- Q12 -->
+  <label for="Q12"><strong>Q12</strong><br>What truth about yourself are you tired of knowing but not acting on?</label>
+  <small>The one you've heard before. The one that's always there.</small><br><br>
+  <textarea name="Q12" rows="5" required></textarea><br><br>
 
-      <div class="question">
-        <div class="q-num">Q6</div>
-        <div class="q-text">What commitment to yourself do you keep breaking, over and over?</div>
-        <div class="q-hint">Not to others — to yourself.</div>
-        <textarea name="q6" placeholder="Write what comes first..."></textarea>
-      </div>
-    </div>
+  <!-- Q13 -->
+  <label for="Q13"><strong>Q13</strong><br>Which part of this assessment did you already want to skip or rush through?</label>
+  <small>Name it honestly.</small><br><br>
+  <textarea name="Q13" rows="5" required></textarea><br><br>
 
-    <div class="rule"></div>
+  <!-- Q14 -->
+  <label for="Q14"><strong>Q14</strong><br>What would change in your daily life if you stopped blaming circumstances, timing, or other people?</label>
+  <small>One specific thing.</small><br><br>
+  <textarea name="Q14" rows="5" required></textarea><br><br>
 
-    <!-- ── PART 3 ───────────────────────────────────── -->
-    <div class="part">
-      <div class="part-header">
-        <div class="part-num">Part 3 of 7</div>
-        <div class="part-title">The Identity Underneath</div>
-        <div class="part-description">These reveal the root — the self-concept driving the behavior.</div>
-      </div>
+  <!-- Q15 -->
+  <label for="Q15"><strong>Q15</strong><br>Right now, are you more attached to comfort or to coherence?</label>
+  <small>Be honest. There is no wrong answer — only an accurate one.</small><br><br>
+  <textarea name="Q15" rows="5" required></textarea><br><br>
 
-      <div class="question">
-        <div class="q-num">Q7</div>
-        <div class="q-text">What part of your current identity would have to change — or disappear — for you to reach the next level?</div>
-        <div class="q-hint">What version of you would need to die?</div>
-        <textarea name="q7" placeholder="Write what comes first..."></textarea>
-      </div>
+  <!-- Q16 -->
+  <label for="Q16"><strong>Q16</strong><br>What habits or patterns are keeping your energy low, scattered, or inconsistent?</label>
+  <small>Name at least 2 specific ones.</small><br><br>
+  <textarea name="Q16" rows="5" required></textarea><br><br>
 
-      <div class="question">
-        <div class="q-num">Q8</div>
-        <div class="q-text">What fear feels "irrational" to you, yet still controls important decisions?</div>
-        <div class="q-hint">The one you know doesn't make sense but acts anyway.</div>
-        <textarea name="q8" placeholder="Write what comes first..."></textarea>
-      </div>
+  <!-- Q17 -->
+  <label for="Q17"><strong>Q17</strong><br>Why must this pattern end now — not in 6 months, not "eventually"?</label>
+  <small>What is it actually costing you? Be specific.</small><br><br>
+  <textarea name="Q17" rows="5" required></textarea><br><br>
 
-      <div class="question">
-        <div class="q-num">Q9</div>
-        <div class="q-text">What role do you tend to repeat in life — in work, relationships, and challenges?</div>
-        <div class="q-hint">Victim / rescuer / over-achiever / people-pleaser / avoider / rebel / the strong one</div>
-        <textarea name="q9" placeholder="Write what comes first..."></textarea>
-      </div>
-    </div>
+  <!-- Q18 -->
+  <label for="Q18"><strong>Q18</strong><br>How long has the main pattern you identified been present in your life?</label><br><br>
+  <textarea name="Q18" rows="5" required></textarea><br><br>
 
-    <div class="rule"></div>
+  <!-- Q19 -->
+  <label for="Q19"><strong>Q19</strong><br>How many areas of your life does it affect?</label><br><br>
+  <textarea name="Q19" rows="5" required></textarea><br><br>
 
-    <!-- ── PART 4 ───────────────────────────────────── -->
-    <div class="part">
-      <div class="part-header">
-        <div class="part-num">Part 4 of 7</div>
-        <div class="part-title">Your Body's Signal</div>
-        <div class="part-description">These ground the pattern in physical reality.</div>
-      </div>
+  <!-- Q20 -->
+  <label for="Q20"><strong>Q20</strong><br>Based on everything you've answered: what level of support do you actually need right now?</label><br><br>
+  <textarea name="Q20" rows="5" required></textarea><br><br>
 
-      <div class="question">
-        <div class="q-num">Q10</div>
-        <div class="q-text">How does your body respond when you're about to grow, be seen, or take a significant step?</div>
-        <div class="q-hint">Tension / shutdown / hyperactivity / numbness / anxiety / avoidance — describe the physical sensation</div>
-        <textarea name="q10" placeholder="Write what comes first..."></textarea>
-      </div>
+  <button type="submit">Submit Assessment →</button>
 
-      <div class="question">
-        <div class="q-num">Q11</div>
-        <div class="q-text">What sensation or state do you habitually override to keep functioning?</div>
-        <div class="q-hint">Fatigue / emotions / needs / discomfort — what do you push past to "keep going"?</div>
-        <textarea name="q11" placeholder="Write what comes first..."></textarea>
-      </div>
-    </div>
+</form>
 
-    <div class="rule"></div>
-
-    <!-- ── PART 5 ───────────────────────────────────── -->
-    <div class="part">
-      <div class="part-header">
-        <div class="part-num">Part 5 of 7</div>
-        <div class="part-title">What You Already Know</div>
-        <div class="part-description">These cut to the truth the person is circling.</div>
-      </div>
-
-      <div class="question">
-        <div class="q-num">Q12</div>
-        <div class="q-text">What truth about yourself are you tired of knowing but not acting on?</div>
-        <div class="q-hint">The one you've heard before. The one that's always there.</div>
-        <textarea name="q12" placeholder="Write what comes first..."></textarea>
-      </div>
-
-      <div class="question">
-        <div class="q-num">Q13</div>
-        <div class="q-text">Which part of this assessment did you already want to skip or rush through?</div>
-        <div class="q-hint">Name it honestly.</div>
-        <textarea name="q13" placeholder="Write what comes first..."></textarea>
-      </div>
-
-      <div class="question">
-        <div class="q-num">Q14</div>
-        <div class="q-text">What would change in your daily life if you stopped blaming circumstances, timing, or other people?</div>
-        <div class="q-hint">One specific thing.</div>
-        <textarea name="q14" placeholder="Write what comes first..."></textarea>
-      </div>
-    </div>
-
-    <div class="rule"></div>
-
-    <!-- ── PART 6 ───────────────────────────────────── -->
-    <div class="part">
-      <div class="part-header">
-        <div class="part-num">Part 6 of 7</div>
-        <div class="part-title">Your Readiness</div>
-        <div class="part-description">These qualify commitment. High-intent clients answer directly. Low-intent will hedge.</div>
-      </div>
-
-      <div class="question">
-        <div class="q-num">Q15</div>
-        <div class="q-text">Right now, are you more attached to comfort or to coherence?</div>
-        <div class="q-hint">Be honest. There is no wrong answer — only an accurate one.</div>
-        <textarea name="q15" placeholder="Write what comes first..."></textarea>
-      </div>
-
-      <div class="question">
-        <div class="q-num">Q16</div>
-        <div class="q-text">What habits or patterns are keeping your energy low, scattered, or inconsistent?</div>
-        <div class="q-hint">Name at least 2 specific ones.</div>
-        <textarea name="q16" placeholder="Write what comes first..."></textarea>
-      </div>
-
-      <div class="question">
-        <div class="q-num">Q17</div>
-        <div class="q-text">Why must this pattern end now — not in 6 months, not "eventually"?</div>
-        <div class="q-hint">What is it actually costing you? Be specific.</div>
-        <textarea name="q17" placeholder="Write what comes first..."></textarea>
-      </div>
-    </div>
-
-    <div class="rule"></div>
-
-    <!-- ── PART 7 ───────────────────────────────────── -->
-    <div class="part">
-      <div class="part-header">
-        <div class="part-num">Part 7 of 7</div>
-        <div class="part-title">Your Timeline</div>
-        <div class="part-description">These calibrate the personalized report output.</div>
-      </div>
-
-      <div class="question">
-        <div class="q-num">Q18</div>
-        <div class="q-text">How long has the main pattern you identified been present in your life?</div>
-        <div class="radio-group">
-          <label class="radio-option">
-            <input type="radio" name="q18" value="less_than_1_year">
-            <span>Less than 1 year</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="q18" value="1_to_3_years">
-            <span>1–3 years</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="q18" value="3_to_10_years">
-            <span>3–10 years</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="q18" value="more_than_10_years">
-            <span>More than 10 years</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="q-num">Q19</div>
-        <div class="q-text">How many areas of your life does it affect?</div>
-        <div class="radio-group">
-          <label class="radio-option">
-            <input type="radio" name="q19" value="1_area">
-            <span>1 area</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="q19" value="2_to_3_areas">
-            <span>2–3 areas</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="q19" value="most_areas">
-            <span>Most areas</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="q19" value="all_areas">
-            <span>All areas</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="q-num">Q20</div>
-        <div class="q-text">Based on everything you've answered: what level of support do you actually need right now?</div>
-        <div class="radio-group">
-          <label class="radio-option">
-            <input type="radio" name="q20" value="clarity_first">
-            <span>I need clarity first</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="q20" value="structured_system">
-            <span>I need a structured system</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="q20" value="accountability_coaching">
-            <span>I need accountability + coaching</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="q20" value="deep_transformation">
-            <span>I need deep transformation</span>
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── SUBMIT ───────────────────────────────────── -->
-    <div class="submit-block">
-      <p class="submit-note">Your report will be sent to the email address you provided above. Most reports are delivered within a few hours of submission.</p>
-      <button type="submit">Submit Assessment →</button>
-    </div>
-
-  </form>
-
-  <!-- ── FOOTER ──────────────────────────────────────── -->
-  <div class="form-footer">
-    <div class="logo-block">
-      <div class="diamond" style="width:9px;height:9px;"></div>
-      <span class="logo-text">SCE — Soy Consciencia Elevada</span>
-    </div>
-    <p style="font-style: italic;">This is a structured self-diagnostic tool. Not a clinical assessment.</p>
-  </div>
-
-
-  <script>
-    // Pre-fill name/email from Whop redirect params (?name=...&email=...)
-    (function() {
-      const params = new URLSearchParams(window.location.search);
-      const nameVal = params.get('name');
-      const emailVal = params.get('email');
-      if (nameVal) document.getElementById('client-name').value = nameVal;
-      if (emailVal) document.getElementById('client-email').value = emailVal;
-    })();
-
-    document.getElementById('audit-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const form = e.target;
-      const btn = form.querySelector('button[type="submit"]');
-      btn.textContent = 'Submitting...';
-      btn.disabled = true;
-
-      const data = {};
-      new FormData(form).forEach((value, key) => { data[key] = value; });
-
-      try {
-        await fetch('https://hooks.zapier.com/hooks/catch/27533592/4y9ygdo/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain' },
-          body: JSON.stringify(data)
-        });
-
-        document.getElementById('audit-form').style.display = 'none';
-        document.querySelector('.intro').style.display = 'none';
-        document.querySelector('.form-header').style.display = 'none';
-        document.getElementById('success-state').style.display = 'block';
-      } catch (err) {
-        btn.textContent = 'Submit Assessment →';
-        btn.disabled = false;
-        alert('Something went wrong. Please try again or contact soyconscienciaelevada@gmail.com');
-      }
-    });
-  </script>
+<p style="text-align:center; margin-top:50px; color:#666; font-size:14px;">
+  This is a structured self-diagnostic tool. Not a clinical assessment.
+</p>
 
 </body>
 </html>
