@@ -8,12 +8,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:        #EFF6F4;
-      --bg-alt:    #F5F8F7;
-      --text:      #2F3A38;
-      --soft:      #5A6B68;
-      --accent:    #9FC7BF;
-      --border:    rgba(159, 199, 191, 0.28);
+      --bg:         #EFF6F4;
+      --bg-alt:     #F5F8F7;
+      --text:       #2F3A38;
+      --text-soft:  #5A6B68;
+      --accent:     #2F3A38;
+      --accent-alt: #5A6B68;
+      --teal:       #9FC7BF;
+      --border:     rgba(159, 199, 191, 0.28);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -62,12 +64,12 @@
       font-weight: 400;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--soft);
+      color: var(--text-soft);
     }
 
     .header-meta p {
       font-size: 10.5px;
-      color: var(--soft);
+      color: var(--text-soft);
       letter-spacing: 0.04em;
       text-align: right;
       line-height: 1.6;
@@ -87,7 +89,7 @@
 
     .intro p {
       font-size: 0.9rem;
-      color: var(--soft);
+      color: var(--text-soft);
       line-height: 1.75;
       max-width: 520px;
     }
@@ -100,7 +102,7 @@
       margin-bottom: 56px;
       padding: 32px 28px;
       background: var(--bg-alt);
-      border-left: 2px solid var(--accent);
+      border-left: 2px solid var(--teal);
     }
 
     @media (max-width: 500px) {
@@ -134,7 +136,7 @@
 
     .part-description {
       font-size: 0.825rem;
-      color: var(--soft);
+      color: var(--text-soft);
       font-style: italic;
     }
 
@@ -164,7 +166,7 @@
 
     .q-hint {
       font-size: 0.8rem;
-      color: var(--soft);
+      color: var(--text-soft);
       font-style: italic;
       margin-bottom: 14px;
       line-height: 1.5;
@@ -177,7 +179,7 @@
       font-weight: 400;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--soft);
+      color: var(--text-soft);
       margin-bottom: 8px;
     }
 
@@ -238,7 +240,7 @@
       width: auto;
       margin-top: 3px;
       flex-shrink: 0;
-      accent-color: var(--accent);
+      accent-color: var(--teal);
     }
 
     .radio-option span {
@@ -272,7 +274,7 @@
 
     .submit-note {
       font-size: 0.825rem;
-      color: var(--soft);
+      color: var(--text-soft);
       line-height: 1.7;
       margin-bottom: 28px;
       max-width: 480px;
@@ -309,7 +311,7 @@
 
     .form-footer p {
       font-size: 10px;
-      color: var(--soft);
+      color: var(--text-soft);
       letter-spacing: 0.04em;
     }
 
@@ -332,7 +334,7 @@
       <span class="logo-text">SCE — Identity Audit Protocol</span>
     </div>
     <div class="header-meta">
-      <p>Pattern Detection &amp; Liberation Assessment</p>
+      <p>Execution Mechanism Diagnostic</p>
       <p>30–40 minutes · Answer slowly</p>
     </div>
   </div>
@@ -348,7 +350,7 @@
   <div id="success-state" data-fs-success style="display:none; text-align:center; padding: 80px 0;">
     <div style="font-size:9px; font-weight:400; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:20px;">Assessment received</div>
     <h1 style="font-size:1.3rem; font-weight:300; letter-spacing:-0.01em; margin-bottom:20px;">Your report is on its way.</h1>
-    <p style="font-size:0.9rem; color:var(--soft); max-width:400px; margin:0 auto;">Check your inbox. Most reports are delivered within a few hours.<br><br>If a question made you uncomfortable — that reaction was already the data.</p>
+    <p style="font-size:0.9rem; color:var(--text-soft); max-width:400px; margin:0 auto;">Check your inbox. Most reports are delivered within a few hours.<br><br>If a question made you uncomfortable — that reaction was already the data.</p>
   </div>
 
   <form id="audit-form">
@@ -402,7 +404,7 @@
       <div class="part-header">
         <div class="part-num">Part 2 of 7</div>
         <div class="part-title">How You Stop Yourself</div>
-        <div class="part-description">These reveal your execution failure pattern.</div>
+        <div class="part-description">These reveal your execution failure mechanism.</div>
       </div>
 
       <div class="question">
@@ -466,7 +468,7 @@
       <div class="part-header">
         <div class="part-num">Part 4 of 7</div>
         <div class="part-title">Your Body's Signal</div>
-        <div class="part-description">These ground the pattern in physical reality.</div>
+        <div class="part-description">These ground the mechanism in physical reality.</div>
       </div>
 
       <div class="question">
@@ -535,14 +537,14 @@
 
       <div class="question">
         <div class="q-num">Q16</div>
-        <div class="q-text">What habits or patterns are keeping your energy low, scattered, or inconsistent?</div>
+        <div class="q-text">What habits or behaviors are keeping your energy low, scattered, or inconsistent?</div>
         <div class="q-hint">Name at least 2 specific ones.</div>
         <textarea name="q16" placeholder="Write what comes first..."></textarea>
       </div>
 
       <div class="question">
         <div class="q-num">Q17</div>
-        <div class="q-text">Why must this pattern end now — not in 6 months, not "eventually"?</div>
+        <div class="q-text">Why must this end now — not in 6 months, not "eventually"?</div>
         <div class="q-hint">What is it actually costing you? Be specific.</div>
         <textarea name="q17" placeholder="Write what comes first..."></textarea>
       </div>
@@ -560,7 +562,7 @@
 
       <div class="question">
         <div class="q-num">Q18</div>
-        <div class="q-text">How long has the main pattern you identified been present in your life?</div>
+        <div class="q-text">How long has the main mechanism you identified been present in your life?</div>
         <div class="radio-group">
           <label class="radio-option">
             <input type="radio" name="q18" value="less_than_1_year">
